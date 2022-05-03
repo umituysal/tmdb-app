@@ -9,9 +9,8 @@ function App() {
       <div>
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route path="/movie/:movie_id" element={<MovieDetail />} />
           <Route exact path="/person/:person_id" element={<PersonDetail />} />
-          {/* <Route path="/quotes/:quote_id" element={<QuoteDetail />} /> */}
+          <Route exact path="/movie/:movie_id" element={<MovieDetail />} />
         </Routes>
       </div>
     </Router>

@@ -2,23 +2,30 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Header from "../../components/Header";
 import MovieList from "../../components/MovieList";
-// import Error from "../../components/Error";
+
 import { fetchMoviesPopular } from "../../redux/movies/moviesSlice";
 
 function Home() {
-  const data = useSelector((state) => state.movies.items);
-  // const status = useSelector((state) => state.movies.isLoading);
-  // const error = useSelector((state) => state.movies.error);
+  const { items, statusPopular, errorPopular } = useSelector(
+    (state) => state.movies
+  );
+
   const dispatch = useDispatch();
-  console.log("data", data[0]?.results);
+
   useEffect(() => {
-    dispatch(fetchMoviesPopular());
-  }, [dispatch]);
+    if (statusPopular === "idle") {
+      dispatch(fetchMoviesPopular());
+    }
+  }, [dispatch, statusPopular]);
 
   return (
     <>
       <Header />
-      <MovieList movies={data[0]?.results}/>
+      <MovieList
+        movies={items[0]?.results}
+        status={statusPopular}
+        error={errorPopular}
+      />
     </>
   );
 }
