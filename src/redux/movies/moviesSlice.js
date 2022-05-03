@@ -2,33 +2,57 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 export const fetchMoviesPopular = createAsyncThunk(
   "movies/getPopular",
-  async (page) => {
+  async () => {
     const res = await axios(
       `${process.env.REACT_APP_API_BASE_ENDPOINT}/popular?api_key=${process.env.REACT_APP_API_KEY}`
     );
     return res.data;
   }
 );
+export const fetchMoviesSearch = createAsyncThunk(
+  "movies/getSearch",
+  async (search) => {
+    if (search !== "") {
+      const res = await axios(
+        `https://api.themoviedb.org/3/search/movie/?api_key=${process.env.REACT_APP_API_KEY}&query=${search}`
+      );
+      return res.data;
+    }
+  }
+);
 export const moviesSlice = createSlice({
   name: "movies",
   initialState: {
     items: [],
-    status: "idle",
-    isLoading: false,
-    error: null,
+    search: [],
+    statusPopular: "idle",
+    statusSearch: "idle",
+    errorPopular: null,
+    errorSearch: null,
   },
   reducer: {},
   extraReducers: {
     [fetchMoviesPopular.pending]: (state, action) => {
-      state.status = "loading";
+      state.statusPopular = "loading";
     },
     [fetchMoviesPopular.fulfilled]: (state, action) => {
       state.items = [action.payload];
-      state.status = "succeeded";
+      state.statusPopular = "succeeded";
     },
     [fetchMoviesPopular.rejected]: (state, action) => {
-      state.status = "failed";
-      state.error = action.error.message;
+      state.statusPopular = "failed";
+      state.errorPopular = action.error.message;
+    },
+    [fetchMoviesSearch.pending]: (state, action) => {
+      state.statusSearch = "loading";
+    },
+    [fetchMoviesSearch.fulfilled]: (state, action) => {
+      state.search = [action.payload];
+      state.statusSearch = "succeeded";
+    },
+    [fetchMoviesSearch.rejected]: (state, action) => {
+      state.statusSearch = "failed";
+      state.errorSearch = action.error.message;
     },
   },
 });
