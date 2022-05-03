@@ -1,1 +1,1 @@
-#Proje: https://tmdb-app-mocha.vercel.app/.
+Proje: https://tmdb-app-mocha.vercel.app/.
