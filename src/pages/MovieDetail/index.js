@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import CastList from "../../components/CastList";
 import Error from "../../components/Error";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
 import Loading from "../../components/Loading";
 import {
   fetchMovieDetail,
@@ -30,6 +32,7 @@ function MovieDetail() {
   }
   return (
     <>
+      <Header />
       <header>
         {statusDetail === "loading" && <Loading />}
         <div
@@ -76,6 +79,7 @@ function MovieDetail() {
       <section className="mt-5">
         <CastList movies={casts[0]?.cast?.slice(0, 10)} error={errorCast} />
       </section>
+      <Footer />
     </>
   );
 }

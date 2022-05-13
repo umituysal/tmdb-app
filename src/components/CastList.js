@@ -14,7 +14,7 @@ function CastList({ movies, errorCast, statusCast }) {
           <div className="rounded-lg relative">
             <a href={`/person/${item?.id}`}>
               <img
-                className="rounded-lg w-full h-[500px] object-cover"
+                className="rounded-lg w-full object-cover"
                 src={process.env.REACT_APP_BACKDROP_PATH + item?.profile_path}
                 alt=""
               />

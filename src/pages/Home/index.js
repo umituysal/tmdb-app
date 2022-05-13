@@ -1,9 +1,12 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Header from "../../components/Header";
-import MovieList from "../../components/MovieList";
 
 import { fetchMoviesPopular } from "../../redux/movies/moviesSlice";
+
+import Header from "../../components/Header";
+import Banner from "../../components/Banner";
+import MovieList from "../../components/MovieList";
+import Footer from "../../components/Footer";
 
 function Home() {
   const { items, statusPopular, errorPopular } = useSelector(
@@ -21,11 +24,13 @@ function Home() {
   return (
     <>
       <Header />
+      <Banner />
       <MovieList
         movies={items[0]?.results}
         status={statusPopular}
         error={errorPopular}
       />
+      <Footer />
     </>
   );
 }
