@@ -6,3 +6,6 @@
 .info-text {
     @apply text-zinc-500 text-sm
 }
+.menu-hover {
+    @apply p-2 transition-all duration-300 ease-in-out hover:bg-white hover:text-dark-blue text-center w-full
+}
