@@ -13,7 +13,7 @@ function Header() {
   return (
     <header style={{ backgroundColor: "#032541" }}>
       <div className="container mx-auto p-4 flex items-center justify-between">
-        <div className="flex items-center justify-between w-full">
+        <div className="flex items-center justify-between md:justify-start w-full">
           <a href="/">
             {" "}
             <img src={Logo} alt="logo" className="w-36 h-10 mr-10" />
