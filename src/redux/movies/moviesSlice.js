@@ -14,12 +14,25 @@ export const fetchMoviesSearch = createAsyncThunk(
   async (search) => {
     if (search !== "") {
       const res = await axios(
-         `${process.env.REACT_APP_API_SEARCH}?api_key=${process.env.REACT_APP_API_KEY}&query=${search}`
+        `${process.env.REACT_APP_API_SEARCH}?api_key=${process.env.REACT_APP_API_KEY}&query=${search}`
       );
       return res.data;
     }
   }
 );
+export const fetchMoviesSearchPage = createAsyncThunk(
+  "movies/getSearchPage",
+  async (data) => {
+    const { search, pageItem } = data;
+    if (search !== "") {
+      const res = await axios(
+        `${process.env.REACT_APP_API_SEARCH}?api_key=${process.env.REACT_APP_API_KEY}&query=${search}&page=${pageItem}`
+      );
+      return res.data;
+    }
+  }
+);
+
 export const moviesSlice = createSlice({
   name: "movies",
   initialState: {
@@ -51,6 +64,17 @@ export const moviesSlice = createSlice({
       state.statusSearch = "succeeded";
     },
     [fetchMoviesSearch.rejected]: (state, action) => {
+      state.statusSearch = "failed";
+      state.errorSearch = action.error.message;
+    },
+    [fetchMoviesSearchPage.pending]: (state, action) => {
+      state.statusSearch = "loading";
+    },
+    [fetchMoviesSearchPage.fulfilled]: (state, action) => {
+      state.search = [action.payload];
+      state.statusSearch = "succeeded";
+    },
+    [fetchMoviesSearchPage.rejected]: (state, action) => {
       state.statusSearch = "failed";
       state.errorSearch = action.error.message;
     },

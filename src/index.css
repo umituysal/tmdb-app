@@ -3,9 +3,23 @@
 @tailwind utilities;
 @import url('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css');
+
 .info-text {
     @apply text-zinc-500 text-sm
 }
+
 .menu-hover {
     @apply p-2 transition-all duration-300 ease-in-out hover:bg-white hover:text-dark-blue text-center w-full
+}
+.pagination{
+    @apply flex justify-center
+}
+.page-item{
+    @apply w-10 h-10 bg-dark-blue text-white rounded-full flex justify-center items-center mx-1 transition-all ease-in-out duration-500
+}
+.selected {
+    @apply bg-[#10B6DE]
+}
+.disabled{
+    @apply opacity-0
 }

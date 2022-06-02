@@ -4,11 +4,15 @@ import { useLocation } from "react-router-dom";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { fetchMoviesSearch } from "../../redux/movies/moviesSlice";
+import Pagination from "../../components/Pagination";
 
 function SearchList() {
   const searchData = useSelector((state) => state.movies.search);
   const { search } = useLocation();
   const dispatch = useDispatch();
+  let searchName = "";
+  searchName = search.split("?query=").pop();
+
   const months = [
     "January",
     "February",
@@ -23,8 +27,6 @@ function SearchList() {
     "November",
     "December",
   ];
-  let searchName = "";
-  searchName = search.split("?query=").pop();
 
   useEffect(() => {
     dispatch(fetchMoviesSearch(searchName));
@@ -69,7 +71,6 @@ function SearchList() {
             </li>
           </ul>
         </div>
-
         <div className="col-auto md:col-span-4 py-4">
           {searchData[0]?.results?.map((i) => (
             <div
@@ -79,24 +80,41 @@ function SearchList() {
               <a href={`/movie/${i?.id}`}>
                 {" "}
                 <div className="flex py-2">
-                  <img
-                    className="w-24 h-32 mr-5 object-cover rounded-md"
-                    src={`${process.env.REACT_APP_BACKDROP_PATH}/${i?.backdrop_path}`}
-                    alt={i.title}
-                  />
+                  {i?.backdrop_path ? (
+                    <img
+                      className="w-24 h-32 mr-5 object-cover rounded-md"
+                      src={`${process.env.REACT_APP_BACKDROP_PATH}/${i?.backdrop_path}`}
+                      alt={i.title}
+                    />
+                  ) : (
+                    <img
+                      REACT_APP_API_NOT_IMAGE
+                      className="w-24 h-32 mr-5 object-cover rounded-md"
+                      src={process.env.REACT_APP_API_NOT_IMAGE}
+                      alt={i.title}
+                    />
+                  )}
                   <div className="flex flex-col justify-center">
                     <p> {i.title}</p>
-                    <p>
-                      {months[new Date(i.release_date).getMonth()]}{" "}
-                      {new Date(i.release_date).getMonth()},{" "}
-                      {new Date(i.release_date).getFullYear()}
-                    </p>
+                    {i.release_date ? (
+                      <p>
+                        {months[new Date(i.release_date).getMonth()]}{" "}
+                        {new Date(i.release_date).getMonth()},{" "}
+                        {new Date(i.release_date).getFullYear()}
+                      </p>
+                    ) : (
+                      <p>Not found</p>
+                    )}
                     <p>{i.overview.slice(0, 75)}</p>
                   </div>
                 </div>
               </a>
             </div>
           ))}
+          <Pagination
+            searchName={searchName}
+            total={searchData[0]?.total_pages}
+          />
         </div>
       </div>
       <Footer />
