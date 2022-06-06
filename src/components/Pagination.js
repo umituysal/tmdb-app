@@ -1,6 +1,8 @@
 import ReactPaginate from "react-paginate";
 import { useDispatch } from "react-redux";
-import { fetchMoviesSearchPage } from "../redux/movies/moviesSlice";
+import { fetchMoviesSearchPage } from "../redux/movies/services";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+
 function Pagination({ total, searchName }) {
   const dispatch = useDispatch();
 
@@ -20,12 +22,12 @@ function Pagination({ total, searchName }) {
         previousLinkClassName="page-link"
         nextClassName="page-item"
         nextLinkClassName="page-link"
-        nextLabel=">"
+        nextLabel={<FiChevronRight />}
         containerClassName="pagination"
         onPageChange={handlePageClick}
         pageRangeDisplayed={4}
         pageCount={Number(total)}
-        previousLabel="<"
+        previousLabel={<FiChevronLeft />}
         renderOnZeroPageCount={null}
       />
     </>

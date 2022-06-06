@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-import { fetchMoviesPopular } from "../../redux/movies/moviesSlice";
+import { fetchMoviesPopular } from "../../redux/movies/services";
 
 import Header from "../../components/Header";
 import Banner from "../../components/Banner";
@@ -9,26 +9,26 @@ import MovieList from "../../components/MovieList";
 import Footer from "../../components/Footer";
 
 function Home() {
-  const { items, statusPopular, errorPopular } = useSelector(
+  const { movies, popular} = useSelector(
     (state) => state.movies
   );
-
+  
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (statusPopular === "idle") {
+    if (popular.status === "idle") {
       dispatch(fetchMoviesPopular());
     }
-  }, [dispatch, statusPopular]);
+  }, [dispatch, popular.status]);
 
   return (
     <>
       <Header />
       <Banner />
       <MovieList
-        movies={items[0]?.results}
-        status={statusPopular}
-        error={errorPopular}
+        movies={movies[0]}
+        status={popular.status}
+        error={popular.error}
       />
       <Footer />
     </>

@@ -81,11 +81,19 @@ function ActingList({ casts, status, error }) {
           casts?.map((item) => (
             <div key={item?.id}>
               <picture className="block md:px-2">
-                <img
-                  src={`${process.env.REACT_APP_BACKDROP_PATH}/${item?.backdrop_path}`}
-                  alt={item?.title}
-                  className="md:rounded-lg"
-                />
+                {item?.backdrop_path ? (
+                  <img
+                    className="md:rounded-lg"
+                    src={`${process.env.REACT_APP_BACKDROP_PATH}/${item?.backdrop_path}`}
+                    alt={item.title}
+                  />
+                ) : (
+                  <img
+                    className="md:rounded-lg"
+                    alt={item.title}
+                    src={process.env.REACT_APP_API_NOT_IMAGE}
+                  />
+                )}
               </picture>
             </div>
           ))}

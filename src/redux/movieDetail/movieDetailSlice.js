@@ -4,36 +4,41 @@ import { fetchMovieDetail, fetchCastList } from "./services";
 export const movieDetailSlice = createSlice({
   name: "movieDetail",
   initialState: {
-    item: {},
+    movieDetail: {},
     casts: [],
-    statusDetail: "idle",
-    statusCast: "idle",
-    errorDetail: null,
-    errorCast: null,
+    movie: {
+      status: "idle",
+      error: null,
+    },
+    cast: {
+      status: "idle",
+      error: null,
+    },
   },
   reducer: {},
   extraReducers: {
     [fetchMovieDetail.pending]: (state, action) => {
-      state.statusDetail = "loading";
+      state.movie.status = "loading";
     },
     [fetchMovieDetail.fulfilled]: (state, action) => {
-      state.item = action.payload;
-      state.statusDetail = "succeeded";
+      state.movieDetail = action.payload;
+      console.log("detay", action.payload)
+      state.movie.status = "succeeded";
     },
     [fetchMovieDetail.rejected]: (state, action) => {
-      state.statusDetail = "failed";
-      state.errorDetail = action.error.message;
+      state.movie.status = "failed";
+      state.movie.error= action.error.message;
     },
     [fetchCastList.pending]: (state, action) => {
-      state.statusCast = "loading";
+      state.cast.status = "loading";
     },
     [fetchCastList.fulfilled]: (state, action) => {
       state.casts = [action.payload];
-      state.statusCast = "succeeded";
+      state.cast.status  = "succeeded";
     },
     [fetchCastList.rejected]: (state, action) => {
-      state.statusCast = "failed";
-      state.errorCast = action.error.message;
+      state.cast.status = "failed";
+      state.cast.error  = action.error.message;
     },
   },
 });

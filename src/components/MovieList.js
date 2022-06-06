@@ -12,11 +12,19 @@ function MovieList({ movies, status, error }) {
         <div key={item?.id} className="flex justify-center h-full">
           <div className="rounded-lg relative">
             <a href={`/movie/${item?.id}`}>
-              <img
-                className="rounded-lg w-full  object-cover"
-                src={`${process.env.REACT_APP_BACKDROP_PATH}/${item?.backdrop_path}`}
-                alt=""
-              />
+              {item?.backdrop_path ? (
+                <img
+                  className="rounded-lg w-full  object-cover"
+                  src={`${process.env.REACT_APP_BACKDROP_PATH}/${item?.backdrop_path}`}
+                  alt=""
+                />
+              ) : (
+                <img
+                  className="rounded-lg w-full  object-cover"
+                  alt=""
+                  src={process.env.REACT_APP_API_NOT_IMAGE}
+                />
+              )}
             </a>
             <div className="rounded-full bg-gradient-to-r from-yellow-400 to-blue-900 text-white flex justify-center items-center w-10 h-10 absolute -mt-6 ml-4">
               {item?.vote_average}

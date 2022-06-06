@@ -14,35 +14,45 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 
 function PersonDetail() {
-  const { cast, personDetail, statusPerson, status, errorPerson, error } =
-    useSelector((state) => state.person);
-
+  const { movieCredits, personDetail, person, cast } = useSelector(
+    (state) => state.person
+  );
+  console.log("movieCREDTİS", movieCredits);
   const { person_id } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (statusPerson === "idle") {
+    if (person.status === "idle") {
       dispatch(fetchPersonDetail(person_id));
     }
-    if (status === "idle") {
+    if (cast.status === "idle") {
       dispatch(fetchPersonCasts(person_id));
     }
-  }, [dispatch, person_id, status, statusPerson]);
-  if (errorPerson) {
-    return <Error message={errorPerson} />;
+  }, [dispatch, person_id, person, cast]);
+  if (person.error) {
+    return <Error message={person.error} />;
   }
   return (
     <>
       <Header />
       <section>
         <div className="container mx-auto grid grid-cols-1 xl:grid-cols-4 gap-6 my-10 md:my-24">
-          {statusPerson === "loading" && <Loading />}
+          {person.status === "loading" && <Loading />}
           <div className="col-span-1 flex flex-col justify-center items-center xl:block">
-            <img
-              src={`${process.env.REACT_APP_BACKDROP_PATH}/${personDetail?.profile_path}`}
-              alt=""
-              className="h-[400px] min-w-[250px] object-cover"
-            />
+            {personDetail?.profile_path ? (
+              <img
+                src={`${process.env.REACT_APP_BACKDROP_PATH}/${personDetail?.profile_path}`}
+                alt=""
+                className="h-[400px] min-w-[250px] object-cover"
+              />
+            ) : (
+              <img
+                REACT_APP_API_NOT_IMAGE
+                className="h-[400px] min-w-[250px] object-cover"
+                src={process.env.REACT_APP_API_NOT_IMAGE}
+                alt=""
+              />
+            )}
             <div className="flex flex-col mt-4">
               <h2 className="text-2xl mb-2">Personal Info</h2>
               <div>
@@ -96,15 +106,18 @@ function PersonDetail() {
             <p className="">{personDetail?.biography}</p>
             <div className="my-4">
               <h2>Known For</h2>
-              <ActingList casts={cast?.cast} status={status} error={error} />
+              <ActingList
+                casts={movieCredits?.cast}
+                status={cast.status}
+                error={cast.error}
+              />
             </div>
             <div>
               <h2 className="text-2xl mx-2">Acting</h2>
               <table className="table-auto w-full">
                 <tbody>
-                  {cast?.cast?.map((item) => (
-                    <div className="my-4 mx-2">
-                      {" "}
+                  {movieCredits?.cast?.map((item, index) => (
+                    <div key={index} className="my-4 mx-2">
                       <tr className="leading-6 flex gap-2">
                         <td className="flex items-center gap-x-5">
                           {item?.release_date ? (
@@ -116,14 +129,12 @@ function PersonDetail() {
                             </>
                           ) : (
                             <>
-                              {" "}
                               <span className="w-10">
-                                {" "}
                                 <GrFormSubtract />
                               </span>
                               <GiCircle />
                             </>
-                          )}{" "}
+                          )}
                         </td>
                         <td className="flex flex-col md:flex-row ">
                           {item?.original_title} as

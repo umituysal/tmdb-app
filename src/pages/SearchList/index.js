@@ -1,13 +1,17 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+
+import { fetchMoviesSearch } from "../../redux/movies/services";
+
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import { fetchMoviesSearch } from "../../redux/movies/moviesSlice";
 import Pagination from "../../components/Pagination";
 
 function SearchList() {
-  const searchData = useSelector((state) => state.movies.search);
+  const { searchMovies, totalResults, totalPage } = useSelector(
+    (state) => state.movies
+  );
   const { search } = useLocation();
   const dispatch = useDispatch();
   let searchName = "";
@@ -43,7 +47,7 @@ function SearchList() {
           <ul className="flex flex-col  my-2  leading-8 capitalize">
             <li className="flex justify-between px-4 py-2 rounded-lg hover:bg-dark-blue hover:text-white">
               <div>filmler</div>
-              <div>({searchData[0]?.total_results})</div>
+              <div>({totalResults})</div>
             </li>
             <li className="flex justify-between px-4 py-2 rounded-lg hover:bg-dark-blue hover:text-white">
               <div>diziler</div>
@@ -72,7 +76,7 @@ function SearchList() {
           </ul>
         </div>
         <div className="col-auto md:col-span-4 py-4">
-          {searchData[0]?.results?.map((i) => (
+          {searchMovies[0]?.map((i) => (
             <div
               key={i.id}
               className="bg-white block rounded-lg px-4 mx-2 -mt-4 z-50 drop-shadow-lg my-8"
@@ -111,10 +115,7 @@ function SearchList() {
               </a>
             </div>
           ))}
-          <Pagination
-            searchName={searchName}
-            total={searchData[0]?.total_pages}
-          />
+          <Pagination searchName={searchName} total={totalPage} />
         </div>
       </div>
       <Footer />
