@@ -17,7 +17,6 @@ function PersonDetail() {
   const { movieCredits, personDetail, person, cast } = useSelector(
     (state) => state.person
   );
-  console.log("movieCREDTİS", movieCredits);
   const { person_id } = useParams();
   const dispatch = useDispatch();
 
@@ -41,13 +40,12 @@ function PersonDetail() {
           <div className="col-span-1 flex flex-col justify-center items-center xl:block">
             {personDetail?.profile_path ? (
               <img
-                src={`${process.env.REACT_APP_BACKDROP_PATH}/${personDetail?.profile_path}`}
+                src={`${process.env.REACT_APP_BACKDROP_PATH}${personDetail?.profile_path}`}
                 alt=""
                 className="h-[400px] min-w-[250px] object-cover"
               />
             ) : (
               <img
-                REACT_APP_API_NOT_IMAGE
                 className="h-[400px] min-w-[250px] object-cover"
                 src={process.env.REACT_APP_API_NOT_IMAGE}
                 alt=""

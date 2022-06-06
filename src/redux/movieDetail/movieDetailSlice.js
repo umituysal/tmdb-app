@@ -22,7 +22,6 @@ export const movieDetailSlice = createSlice({
     },
     [fetchMovieDetail.fulfilled]: (state, action) => {
       state.movieDetail = action.payload;
-      console.log("detay", action.payload)
       state.movie.status = "succeeded";
     },
     [fetchMovieDetail.rejected]: (state, action) => {

@@ -84,7 +84,7 @@ function ActingList({ casts, status, error }) {
                 {item?.backdrop_path ? (
                   <img
                     className="md:rounded-lg"
-                    src={`${process.env.REACT_APP_BACKDROP_PATH}/${item?.backdrop_path}`}
+                    src={`${process.env.REACT_APP_BACKDROP_PATH}${item?.backdrop_path}`}
                     alt={item.title}
                   />
                 ) : (

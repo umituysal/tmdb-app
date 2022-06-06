@@ -86,7 +86,11 @@ function SearchBar() {
                 )}
                 <div className="flex flex-col justify-center">
                   <p> {i.title}</p>
-                  <p>{new Date(i.release_date).getFullYear()}</p>
+                  {i?.release_date ? (
+                    <p>{new Date(i?.release_date).getFullYear()}</p>
+                  ) : (
+                    "..."
+                  )}
                 </div>
               </div>
             </a>

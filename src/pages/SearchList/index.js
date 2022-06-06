@@ -92,7 +92,6 @@ function SearchList() {
                     />
                   ) : (
                     <img
-                      REACT_APP_API_NOT_IMAGE
                       className="w-24 h-32 mr-5 object-cover rounded-md"
                       src={process.env.REACT_APP_API_NOT_IMAGE}
                       alt={i.title}
