@@ -49,8 +49,8 @@ function MovieDetail() {
             className="absolute top-0 right-0 bottom-0 left-0 "
             style={{ backgroundColor: "rgba(0, 0, 0, 0.75)" }}
           >
-            <div className="flex flex-col md:flex-row movieDetails-center h-full">
-              <div className=" text-white px-6 md:px-12">
+            <div className="flex flex-col md:flex-row items-center h-full">
+              <div className="text-white px-6 md:px-12">
                 <a href={movieDetail?.homepage}>
                   {" "}
                   {movieDetail?.backdrop_path ? (
@@ -70,8 +70,8 @@ function MovieDetail() {
               </div>
               <div className="text-white text-center md:text-left px-6 md:px-12">
                 <h1 className="text-4xl capitalize">{movieDetail?.title}</h1>
-                <ul className="flex space-x-3 movieDetails-center justify-center md:justify-start">
-                  <li className="rounded-full bg-gradient-to-r from-yellow-400 to-blue-900 text-white flex justify-center movieDetails-center w-10 h-10">
+                <ul className="flex space-x-3 items-center justify-center md:justify-start">
+                  <li className="rounded-full bg-gradient-to-r from-yellow-400 to-blue-900 text-white flex justify-center items-center w-10 h-10">
                     {movieDetail?.popularity
                       ? Number(movieDetail?.popularity).toFixed(0) % 100
                       : ""}

@@ -1,6 +1,6 @@
 import ReactPaginate from "react-paginate";
 import { useDispatch } from "react-redux";
-import { fetchMoviesSearchPage } from "../redux/movies/services";
+import { fetchSearchPage } from "../redux/search/services";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 
 function Pagination({ total, searchName }) {
@@ -9,7 +9,7 @@ function Pagination({ total, searchName }) {
   const handlePageClick = (event) => {
     const pageItem = event.selected + 1;
     const data = { search: searchName, pageItem };
-    dispatch(fetchMoviesSearchPage(data));
+    dispatch(fetchSearchPage(data));
   };
 
   return (

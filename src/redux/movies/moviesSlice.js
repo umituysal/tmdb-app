@@ -1,18 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 import {
   fetchMoviesPopular,
-  fetchMoviesSearch,
-  fetchMoviesSearchPage,
 } from "./services";
 
 export const moviesSlice = createSlice({
   name: "movies",
   initialState: {
-    movies: [],
     searchMovies: [],
     totalResults: 0,
     totalPage: 0,
-    popular: {
+    movies: {
+      data:[],
       status: "idle",
       error: null,
     },
@@ -24,42 +22,16 @@ export const moviesSlice = createSlice({
   reducer: {},
   extraReducers: {
     [fetchMoviesPopular.pending]: (state, action) => {
-      state.popular.status = "loading";
+      state.movies.status = "loading";
     },
     [fetchMoviesPopular.fulfilled]: (state, action) => {
-      state.movies = [action.payload.results];
-      state.popular.status = "succeeded";
+      state.movies.data = [action.payload.results];
+      state.movies.status = "succeeded";
     },
     [fetchMoviesPopular.rejected]: (state, action) => {
-      state.popular.status = "failed";
-      state.popular.error = action.error.message;
-    },
-    [fetchMoviesSearch.pending]: (state, action) => {
-      state.searching.status = "loading";
-    },
-    [fetchMoviesSearch.fulfilled]: (state, action) => {
-      state.searchMovies = [action.payload.results];
-      state.totalResults = action.payload.total_results;
-      state.totalPage = action.payload.total_pages;
-      state.searching.status = "succeeded";
-    },
-    [fetchMoviesSearch.rejected]: (state, action) => {
-      state.searching.status = "failed";
-      state.searching.error = action.error.message;
-    },
-    [fetchMoviesSearchPage.pending]: (state, action) => {
-      state.searching.status = "loading";
-    },
-    [fetchMoviesSearchPage.fulfilled]: (state, action) => {
-      state.searchMovies = [action.payload.results];
-      state.totalResults = action.payload.total_results;
-      state.totalPage = action.payload.total_pages;
-      state.searching.status = "succeeded";
-    },
-    [fetchMoviesSearchPage.rejected]: (state, action) => {
-      state.searching.status = "failed";
-      state.searching.error = action.error.message;
-    },
+      state.movies.status = "failed";
+      state.movies.error = action.error.message;
+    }
   },
 });
 export default moviesSlice.reducer;

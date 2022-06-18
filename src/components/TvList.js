@@ -3,7 +3,6 @@ import Loading from "./Loading";
 import Error from "./Error";
 import Slider from "react-slick";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-
 function NextBtn({ onClick }) {
   return (
     <button
@@ -25,7 +24,7 @@ function PrevBtn({ onClick }) {
     </button>
   );
 }
-function MoviesList({ movies, status, error }) {
+function TvList({ tv, status, error }) {
   const months = [
     "January",
     "February",
@@ -93,13 +92,13 @@ function MoviesList({ movies, status, error }) {
       {status === "loading" && <Loading />}
 
       <Slider className="md:-mx-2"  {...settings}>
-        {movies?.map((item) => (
+        {tv?.map((item) => (
           <div key={item?.id} className="flex justify-center h-full w-full">
             <div className="rounded-lg mx-2 relative">
-              <a href={`/movie/${item?.id}`}>
+              <a href={`/tv/${item?.id}`}>
                 {item?.backdrop_path ? (
                   <img
-                    className="rounded-lg w-full object-cover"
+                    className="rounded-lg w-full  object-cover"
                     src={`${process.env.REACT_APP_BACKDROP_PATH}/${item?.backdrop_path}`}
                     alt=""
                   />
@@ -116,13 +115,13 @@ function MoviesList({ movies, status, error }) {
                     {item?.vote_average * 10}
                   </div>
                   <div className="p-6 text-center rounded-lg text-white h-20">
-                    <h5 className="text-md font-medium mb-2">
-                      {item?.title}
+                    <h5 className=" text-md font-medium mb-2">
+                      {item?.name}
                     </h5>
                     <p className=" text-sm mb-4">
-                      <span className="mr-1">{months[new Date(item?.release_date).getMonth()]}</span>
-                      <span className="mr-1">{new Date(item?.release_date).getDate()},</span>
-                      {new Date(item?.release_date).getFullYear()}</p>
+                      <span className="mr-1">{months[new Date(item?.first_air_date).getMonth()]}</span>
+                      <span className="mr-1">{new Date(item?.first_air_date).getDate()},</span>
+                      {new Date(item?.first_air_date).getFullYear()}</p>
                   </div>
                 </div>
               </a>
@@ -134,4 +133,4 @@ function MoviesList({ movies, status, error }) {
   );
 }
 
-export default MoviesList;
+export default TvList;

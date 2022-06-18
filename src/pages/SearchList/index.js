@@ -1,21 +1,24 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
-import { fetchMoviesSearch } from "../../redux/movies/services";
+import { fetchSearch } from "../../redux/search/services";
 
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import Pagination from "../../components/Pagination";
 
 function SearchList() {
-  const { searchMovies, totalResults, totalPage } = useSelector(
-    (state) => state.movies
+  const { search } = useSelector(
+    (state) => state.search
   );
-  const { search } = useLocation();
+
+  const { query } = useParams();
   const dispatch = useDispatch();
-  let searchName = "";
-  searchName = search.split("?query=").pop();
+
+  let movie = search?.data[0]?.filter(i => i?.media_type === "movie").length;
+  let tv = search?.data[0]?.filter(i => i?.media_type === "tv").length;
+  let person = search?.data[0]?.filter(i => i?.media_type === "person").length;
 
   const months = [
     "January",
@@ -31,10 +34,9 @@ function SearchList() {
     "November",
     "December",
   ];
-
   useEffect(() => {
-    dispatch(fetchMoviesSearch(searchName));
-  }, [dispatch, searchName]);
+    dispatch(fetchSearch(query));
+  }, [dispatch, query]);
   return (
     <>
       <Header />
@@ -47,15 +49,15 @@ function SearchList() {
           <ul className="flex flex-col  my-2  leading-8 capitalize">
             <li className="flex justify-between px-4 py-2 rounded-lg hover:bg-dark-blue hover:text-white">
               <div>filmler</div>
-              <div>({totalResults})</div>
+              <div>({movie})</div>
             </li>
             <li className="flex justify-between px-4 py-2 rounded-lg hover:bg-dark-blue hover:text-white">
               <div>diziler</div>
-              <div>(0)</div>
+              <div>({tv})</div>
             </li>
             <li className="flex justify-between px-4 py-2 rounded-lg hover:bg-dark-blue hover:text-white">
               <div>kişiler</div>
-              <div>(0)</div>
+              <div>({person})</div>
             </li>
             <li className="flex justify-between px-4 py-2 rounded-lg hover:bg-dark-blue hover:text-white">
               <div>koleksiyonlar</div>
@@ -76,45 +78,43 @@ function SearchList() {
           </ul>
         </div>
         <div className="col-auto md:col-span-4 py-4">
-          {searchMovies[0]?.map((i) => (
-            <div
-              key={i.id}
-              className="bg-white block rounded-lg px-4 mx-2 -mt-4 z-50 drop-shadow-lg my-8"
-            >
-              <a href={`/movie/${i?.id}`}>
-                {" "}
-                <div className="flex py-2">
-                  {i?.backdrop_path ? (
-                    <img
-                      className="w-24 h-32 mr-5 object-cover rounded-md"
-                      src={`${process.env.REACT_APP_BACKDROP_PATH}/${i?.backdrop_path}`}
-                      alt={i.title}
-                    />
-                  ) : (
-                    <img
-                      className="w-24 h-32 mr-5 object-cover rounded-md"
-                      src={process.env.REACT_APP_API_NOT_IMAGE}
-                      alt={i.title}
-                    />
-                  )}
-                  <div className="flex flex-col justify-center">
-                    <p> {i.title}</p>
-                    {i.release_date ? (
-                      <p>
-                        {months[new Date(i.release_date).getMonth()]}{" "}
-                        {new Date(i.release_date).getMonth()},{" "}
-                        {new Date(i.release_date).getFullYear()}
-                      </p>
-                    ) : (
-                      <p>Not found</p>
-                    )}
-                    <p>{i.overview.slice(0, 75)}</p>
+          {search.data[0]?.map((i) => (
+            <a key={i?.id} href={`/${i?.media_type}/${i?.id}`}>
+              <div className="flex my-4 drop-shadow-xl shadow-xl rounded-xl">
+                {i?.media_type === "person" ? <img
+                  className="w-40 h-50 mr-5 object-cover rounded-xl"
+                  src={`${i?.profile_path ? process.env.REACT_APP_BACKDROP_PATH + '/' + i?.profile_path : process.env.REACT_APP_API_NOT_IMAGE}`}
+                  alt={i?.name}
+                /> : i.media_type === "movie" ? <img
+                  className="w-40 h-50 mr-5 object-cover rounded-xl"
+                  src={`${i?.backdrop_path ? process.env.REACT_APP_BACKDROP_PATH + '/' + i?.backdrop_path : process.env.REACT_APP_API_NOT_IMAGE}`}
+                  alt={i?.title}
+                /> : <img
+                  className="w-40 h-50 mr-5 object-cover rounded-xl"
+                  src={`${i?.backdrop_path ? process.env.REACT_APP_BACKDROP_PATH + '/' + i?.backdrop_path : process.env.REACT_APP_API_NOT_IMAGE}`}
+                  alt={i?.title}
+                />
+                }
+                <div className="flex flex-col justify-center">
+                  <div>
+                    <p className="font-medium text-lg"> {i?.media_type === "person" ? i?.name : i?.media_type === "movie" ? i?.title : i?.media_type === "tv" ? i?.name : 'Not Found'}</p>
+                    {i?.media_type === "person" ?
+                      i?.known_for_department : i?.media_type === "movie" ?
+                        <p><span className="mr-1">{months[new Date(i.release_date).getMonth()]}</span>
+                          <span className="mr-1">{new Date(i.release_date).getDate()},</span>
+                          {new Date(i?.release_date).getFullYear()}</p> : i?.media_type === "tv" ?
+                          <p><span className="mr-1">{months[new Date(i.first_air_date).getMonth()]}</span>
+                            <span className="mr-1">{new Date(i.first_air_date).getDate()},</span>
+                            {new Date(i?.first_air_date).getFullYear()}</p> : ''}
+                  </div>
+                  <div>
+                    {i?.media_type === "person" ? <p className="text-md">{i?.known_for?.map(a => <span key={a?.id}>{a?.title}</span>)}</p> : i?.media_type === "movie" ? <p className="text-md">{i?.overview}</p> : i?.media_type === "tv" ? <p className="text-md">{i?.overview}</p> : ''}
                   </div>
                 </div>
-              </a>
-            </div>
+              </div>
+            </a>
           ))}
-          <Pagination searchName={searchName} total={totalPage} />
+          <Pagination searchName={query} total={search?.total_pages} />
         </div>
       </div>
       <Footer />
