@@ -23,17 +23,17 @@ function SearchList() {
   useEffect(() => {
     dispatch(fetchSearch(query));
   }, [dispatch, query]);
-  
+
   return (
     <>
       <Header />
-      <div className="grid grid-col md:grid-cols-6 container px-4 mx-auto w-full my-4">
-        <div className="col-span-2 hidden md:block mx-10 bg-white drop-shadow-xl h-min rounded-md">
+      <div className="md:grid md:grid-cols-6 container px-4 mx-auto w-full my-4">
+        <div className="md:col-span-2 hidden md:block mx-10 bg-white drop-shadow-xl h-min rounded-md">
           <div className="text-md p-4 bg-dark-blue rounded-md text-white">
             {" "}
             Arama Sonuçları
           </div>
-          <ul className="flex flex-col  my-2  leading-8 capitalize">
+          <ul className="flex flex-col my-2  leading-8 capitalize">
             <li className="flex justify-between px-4 py-2 rounded-lg hover:bg-dark-blue hover:text-white">
               <div>filmler</div>
               <div>({movie})</div>
@@ -64,10 +64,10 @@ function SearchList() {
             </li>
           </ul>
         </div>
-        <div className="col-auto md:col-span-4 py-4">
+        <div className="md:col-span-4 py-4">
           {search.data[0]?.map((i) => (
             <a key={i?.id} href={`/${i?.media_type}/${i?.id}`}>
-              <div className="flex flex-col items-center md:flex-row my-4 drop-shadow-xl shadow-xl rounded-xl">
+              <div className="flex flex-col items-center md:flex-row my-4  shadow-xl rounded-xl">
                 {i?.media_type === "person" ? <img
                   className="w-40 h-50 mr-5 object-cover rounded-xl"
                   src={`${i?.profile_path ? process.env.REACT_APP_BACKDROP_PATH + '/' + i?.profile_path : process.env.REACT_APP_API_NOT_IMAGE}`}
