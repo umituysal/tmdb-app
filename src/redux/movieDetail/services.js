@@ -9,7 +9,7 @@ export const fetchMovieDetail = createAsyncThunk(
     return res.data;
   }
 );
-export const fetchCastList = createAsyncThunk(
+export const fetchMovieCasts = createAsyncThunk(
   "movie/getMovieCastList",
   async (id) => {
     const res = await axios(

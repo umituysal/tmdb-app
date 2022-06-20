@@ -1,19 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchMovieDetail, fetchCastList } from "./services";
+import { fetchMovieDetail, fetchMovieCasts } from "./services";
 
 export const movieDetailSlice = createSlice({
   name: "movieDetail",
   initialState: {
-    movieDetail: {},
-    casts: [],
     movie: {
+      data: {},
       status: "idle",
       error: null,
-    },
-    cast: {
-      status: "idle",
-      error: null,
-    },
+      credits: {
+        casts: [],
+        status: "idle",
+        error: null,
+      }
+    }
   },
   reducer: {},
   extraReducers: {
@@ -21,23 +21,24 @@ export const movieDetailSlice = createSlice({
       state.movie.status = "loading";
     },
     [fetchMovieDetail.fulfilled]: (state, action) => {
-      state.movieDetail = action.payload;
+      state.movie.data = action.payload;
       state.movie.status = "succeeded";
     },
     [fetchMovieDetail.rejected]: (state, action) => {
       state.movie.status = "failed";
-      state.movie.error= action.error.message;
+      state.movie.error = action.error.message;
     },
-    [fetchCastList.pending]: (state, action) => {
-      state.cast.status = "loading";
+    [fetchMovieCasts.pending]: (state, action) => {
+      state.movie.credits.status = "loading";
     },
-    [fetchCastList.fulfilled]: (state, action) => {
-      state.casts = [action.payload];
-      state.cast.status  = "succeeded";
+    [fetchMovieCasts.fulfilled]: (state, action) => {
+     
+      state.movie.credits.casts = [action.payload.cast];
+      state.movie.credits.status = "succeeded";
     },
-    [fetchCastList.rejected]: (state, action) => {
-      state.cast.status = "failed";
-      state.cast.error  = action.error.message;
+    [fetchMovieCasts.rejected]: (state, action) => {
+      state.movie.credists.status = "failed";
+      state.movie.credits.status = action.error.message;
     },
   },
 });

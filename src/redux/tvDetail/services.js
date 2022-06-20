@@ -9,7 +9,7 @@ export const fetchTvDetail = createAsyncThunk(
     return res.data;
   }
 );
-export const fetchCastList = createAsyncThunk(
+export const fetchTvCasts = createAsyncThunk(
   "tv/getTvCastList",
   async (id) => {
     const res = await axios(

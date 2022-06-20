@@ -1,36 +1,25 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import ActingList from "../../components/ActingList";
-import {
-  fetchPersonCasts,
-  fetchPersonDetail,
-} from "../../redux/personDetail/services";
 import { GiCircle } from "react-icons/gi";
 import { GrFormSubtract } from "react-icons/gr";
-import Loading from "../../components/Loading";
-import Error from "../../components/Error";
+
+import Loading from "../../common/Loading";
+import Error from "../../common/Error";
+
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import ActingList from "../../components/ActingList";
+
+import useDetail from "../../hooks/useDetail";
 
 function PersonDetail() {
-  const { movieCredits, personDetail, person, cast } = useSelector(
-    (state) => state.person
-  );
-  const { person_id } = useParams();
-  const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (person.status === "idle") {
-      dispatch(fetchPersonDetail(person_id));
-    }
-    if (cast.status === "idle") {
-      dispatch(fetchPersonCasts(person_id));
-    }
-  }, [dispatch, person_id, person, cast]);
+  const { person_id } = useParams();
+  const { person } = useDetail({ id: person_id, name: 'person' })
+
   if (person.error) {
     return <Error message={person.error} />;
   }
+
   return (
     <>
       <Header />
@@ -38,9 +27,9 @@ function PersonDetail() {
         <div className="container mx-auto grid grid-cols-1 xl:grid-cols-4 gap-6 my-10 md:my-24">
           {person.status === "loading" && <Loading />}
           <div className="col-span-1 flex flex-col justify-center items-center xl:block">
-            {personDetail?.profile_path ? (
+            {person?.data?.profile_path ? (
               <img
-                src={`${process.env.REACT_APP_BACKDROP_PATH}${personDetail?.profile_path}`}
+                src={`${process.env.REACT_APP_BACKDROP_PATH}${person?.data?.profile_path}`}
                 alt=""
                 className="h-[400px] min-w-[250px] object-cover"
               />
@@ -56,38 +45,38 @@ function PersonDetail() {
               <div>
                 <h4 className="text-lg">Known For</h4>
                 <span className="info-text">
-                  {personDetail?.known_for_department}
+                  {person?.data?.known_for_department}
                 </span>
               </div>
               <div>
                 <h4>Known Credits</h4>
                 <span className="info-text">
-                  {personDetail?.also_known_as?.length}
+                  {person?.data?.also_known_as?.length}
                 </span>
               </div>
               <div>
                 <h4>Gender</h4>
-                <span className="info-text">{personDetail?.gender}</span>
+                <span className="info-text">{person?.data?.gender}</span>
               </div>
               <div>
                 <h4 className="text-lg my-2">Birthday</h4>
                 <span className="info-text">
-                  {personDetail?.birthday}(
+                  {person?.data?.birthday}(
                   {new Date().getFullYear() -
-                    new Date(personDetail?.birthday).getFullYear()}{" "}
+                    new Date(person?.data?.birthday).getFullYear()}{" "}
                   years old)
                 </span>
               </div>
               <div>
                 <h4 className="text-lg my-2">Place of Birth</h4>
                 <span className="info-text">
-                  {personDetail?.place_of_birth}
+                  {person?.data?.place_of_birth}
                 </span>
               </div>
               <div>
                 <h4 className="text-lg my-2">Also Known As</h4>
                 <ul>
-                  {personDetail?.also_known_as?.map((item, index) => (
+                  {person?.data?.also_known_as?.map((item, index) => (
                     <li className="info-text leading-5" key={index}>
                       {item}
                     </li>
@@ -98,24 +87,24 @@ function PersonDetail() {
           </div>
           <div className="col-span-3">
             <div className="text-center">
-              <h1>{personDetail?.name}</h1>
+              <h1>{person?.data?.name}</h1>
               <h2>Biography</h2>
             </div>
-            <p className="">{personDetail?.biography}</p>
+            <p className="">{person?.data?.biography}</p>
             <div className="my-4">
               <h2>Known For</h2>
               <ActingList
-                casts={movieCredits?.cast}
-                status={cast.status}
-                error={cast.error}
+                casts={person?.credits?.cast[0]}
+                status={person?.credits?.status}
+                error={person?.credits?.error}
               />
             </div>
             <div>
               <h2 className="text-2xl mx-2">Acting</h2>
               <table className="table-auto w-full">
                 <tbody>
-                  {movieCredits?.cast?.map((item, index) => (
-                    <div key={index} className="my-4 mx-2">
+                  {person?.credits?.cast[0]?.map((item) => (
+                    <div key={item?.id} className="my-4 mx-2">
                       <tr className="leading-6 flex gap-2">
                         <td className="flex items-center gap-x-5">
                           {item?.release_date ? (

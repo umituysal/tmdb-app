@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../images/footer-logo.svg";
+
 function Footer() {
   return (
     <footer className="p-24" style={{ backgroundColor: "#032541" }}>

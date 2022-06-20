@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-
+import { months } from '../../common/Months';
 import { fetchSearch } from "../../redux/search/services";
 
 import Footer from "../../components/Footer";
@@ -20,23 +20,10 @@ function SearchList() {
   let tv = search?.data[0]?.filter(i => i?.media_type === "tv").length;
   let person = search?.data[0]?.filter(i => i?.media_type === "person").length;
 
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
   useEffect(() => {
     dispatch(fetchSearch(query));
   }, [dispatch, query]);
+  
   return (
     <>
       <Header />

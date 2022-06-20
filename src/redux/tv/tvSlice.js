@@ -7,7 +7,7 @@ export const tvSlice = createSlice({
   name: "tv",
   initialState: {
     tv: {
-      data:[],
+      data: [],
       status: "idle",
       error: null,
     },

@@ -6,18 +6,11 @@ import {
 export const moviesSlice = createSlice({
   name: "movies",
   initialState: {
-    searchMovies: [],
-    totalResults: 0,
-    totalPage: 0,
     movies: {
-      data:[],
+      data: [],
       status: "idle",
       error: null,
-    },
-    searching: {
-      status: "idle",
-      error: null,
-    },
+    }
   },
   reducer: {},
   extraReducers: {

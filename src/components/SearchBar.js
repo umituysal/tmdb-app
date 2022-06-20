@@ -1,58 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchSearch } from "../redux/search/services";
-import { useNavigate } from "react-router-dom";
-import Error from "./Error";
-import Loading from "./Loading";
+import { useState } from "react";
+import { useSelector } from "react-redux";
+
+import { months } from '../common/Months';
+import Error from "../common/Error";
+import Loading from "../common/Loading";
+
+import useSearch from "../hooks/useSearch";
 
 function SearchBar() {
-  const { search } = useSelector((state) => state.search);
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [searching, setSearching] = useState("");
 
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-
-  const onKeyUp = (event) => {
-    if (event.key === "Enter" && searching) {
-      navigate({
-        pathname: `/search/${searching}`,
-      });
-    }
-  };
-
-  const handleSearch = () => {
-    if (searching) {
-      navigate({
-        pathname: `/search/${searching}`,
-      });
-    }
-  };
-
-  useEffect(() => {
-    if (searching) {
-      const getData = setTimeout(() => {
-        dispatch(fetchSearch(searching));
-      }, 500);
-      return () => {
-        clearTimeout(getData);
-      };
-    }
-  }, [dispatch, searching]);
+  const { search } = useSelector((state) => state.search);
+  const { onKeyUp, handleSearch } = useSearch({ searching });
 
   if (search.error) {
     return <Error message={search.error} />;

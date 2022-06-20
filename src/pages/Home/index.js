@@ -1,8 +1,4 @@
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-
-import { fetchMoviesPopular } from "../../redux/movies/services";
-import { fetchTvPopular } from "../../redux/tv/services";
+import { useState } from "react";
 
 import Header from "../../components/Header";
 import Banner from "../../components/Banner";
@@ -11,34 +7,12 @@ import TvList from "../../components/TvList";
 import Footer from "../../components/Footer";
 import SignUpBanner from "../../components/SignUpBanner";
 
+import usePopular from "../../hooks/usePopular";
+
 function Home() {
-  const { movies } = useSelector(
-    (state) => state.movies
-  );
-  const { tv } = useSelector(
-    (state) => state.tv
-  );
+
   const [selected, setSelected] = useState('movies')
-  const dispatch = useDispatch();
-
-  const handleGetTv = () => {
-    setSelected('tv')
-    dispatch(fetchTvPopular());
-  }
-
-  const handleGetMovie = () => {
-    setSelected('movies')
-    dispatch(fetchMoviesPopular());
-  }
-
-  useEffect(() => {
-    if (movies.status === "idle" && selected === 'movies') {
-      dispatch(fetchMoviesPopular());
-    }
-    if (tv.status === "idle" && selected === 'tv') {
-      dispatch(fetchTvPopular());
-    }
-  }, [dispatch, movies.status, selected, tv.status]);
+  const { movies, tv, handleGetMovie, handleGetTv } = usePopular(selected, setSelected)
 
   return (
     <>

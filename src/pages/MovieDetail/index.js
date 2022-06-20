@@ -1,36 +1,23 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+
 import CastList from "../../components/CastList";
-import Error from "../../components/Error";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import Loading from "../../components/Loading";
-import {
-  fetchMovieDetail,
-  fetchCastList,
-} from "../../redux/movieDetail/services";
+
+import Loading from "../../common/Loading";
+import Error from "../../common/Error";
+
+import useDetail from "../../hooks/useDetail";
 
 function MovieDetail() {
-  const { movieDetail, casts, movie, cast } = useSelector(
-    (state) => state.movie
-  );
 
   const { movie_id } = useParams();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (movie.status === "idle") {
-      dispatch(fetchMovieDetail(movie_id));
-    }
-    if (cast.status === "idle") {
-      dispatch(fetchCastList(movie_id));
-    }
-  }, [dispatch, movie_id, movie, cast]);
+  const { movie } = useDetail({ id: movie_id, name: 'movie' });
 
   if (movie.error) {
     return <Error message={movie.error} />;
   }
+
   return (
     <>
       <Header />
@@ -40,7 +27,7 @@ function MovieDetail() {
           className="relative"
           style={{
             backgroundPosition: "50%",
-            backgroundImage: `url(${process.env.REACT_APP_MOVIE_DETAIL_BACKDROP_PATH}/${movieDetail?.poster_path})`,
+            backgroundImage: `url(${process.env.REACT_APP_MOVIE_DETAIL_BACKDROP_PATH}/${movie?.data?.poster_path})`,
             height: "500px",
             backgroundSize: "cover",
           }}
@@ -51,11 +38,11 @@ function MovieDetail() {
           >
             <div className="flex flex-col md:flex-row items-center h-full">
               <div className="text-white px-6 md:px-12">
-                <a href={movieDetail?.homepage}>
+                <a href={movie?.data?.homepage}>
                   {" "}
-                  {movieDetail?.backdrop_path ? (
+                  {movie?.data?.backdrop_path ? (
                     <img
-                      src={`${process.env.REACT_APP_BACKDROP_PATH}/${movieDetail?.backdrop_path}`}
+                      src={`${process.env.REACT_APP_BACKDROP_PATH}/${movie?.data?.backdrop_path}`}
                       alt=""
                       className="h-[200px] min-w-[100px] mt-5 md:h-[400px] md:min-w-[250px] object-cover"
                     />
@@ -69,17 +56,17 @@ function MovieDetail() {
                 </a>
               </div>
               <div className="text-white text-center md:text-left px-6 md:px-12">
-                <h1 className="text-4xl capitalize">{movieDetail?.title}</h1>
+                <h1 className="text-4xl capitalize">{movie?.data?.title}</h1>
                 <ul className="flex space-x-3 items-center justify-center md:justify-start">
                   <li className="rounded-full bg-gradient-to-r from-yellow-400 to-blue-900 text-white flex justify-center items-center w-10 h-10">
-                    {movieDetail?.popularity
-                      ? Number(movieDetail?.popularity).toFixed(0) % 100
+                    {movie?.data?.popularity
+                      ? Number(movie?.data?.popularity).toFixed(0) % 100
                       : ""}
                   </li>
-                  <li>{movieDetail?.release_date}</li>
+                  <li>{movie?.data?.release_date}</li>
                 </ul>
                 <h4 className="mt-5">Overwiew</h4>
-                <p>{movieDetail?.overview}</p>
+                <p>{movie?.data?.overview}</p>
               </div>
             </div>
           </div>
@@ -87,9 +74,9 @@ function MovieDetail() {
       </header>
       <section className="mt-5">
         <CastList
-          casts={casts[0]?.cast?.slice(0, 10)}
-          error={cast.error}
-          status={cast.status}
+          casts={movie?.credits?.casts[0]?.slice(0, 10)}
+          error={movie?.credits?.error}
+          status={movie?.credits?.status}
         />
       </section>
       <Footer />

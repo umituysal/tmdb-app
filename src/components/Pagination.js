@@ -1,4 +1,5 @@
 import ReactPaginate from "react-paginate";
+
 import { useDispatch } from "react-redux";
 import { fetchSearchPage } from "../redux/search/services";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";

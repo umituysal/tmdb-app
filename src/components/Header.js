@@ -7,6 +7,7 @@ import {
   HiMenuAlt3,
   HiOutlineX,
 } from "react-icons/hi";
+
 function Header() {
   const [open, setOpen] = useState(false);
 

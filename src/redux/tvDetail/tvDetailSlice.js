@@ -1,14 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchTvDetail, fetchCastList } from "./services";
+import { fetchTvDetail, fetchTvCasts } from "./services";
 
 export const tvDetailSlice = createSlice({
   name: "tvDetail",
   initialState: {
     tv: {
-      detail: {},
-      credits: [],
+      data: {},
       status: "idle",
-      error: null
+      error: null,
+      credits: {
+        casts: [],
+        status: "idle",
+        error: null
+      },
     },
   },
   reducer: {},
@@ -17,23 +21,23 @@ export const tvDetailSlice = createSlice({
       state.tv.status = "loading";
     },
     [fetchTvDetail.fulfilled]: (state, action) => {
-      state.tv.detail = action.payload;
+      state.tv.data = action.payload;
       state.tv.status = "succeeded";
     },
     [fetchTvDetail.rejected]: (state, action) => {
       state.tv.status = "failed";
       state.tv.error = action.error.message;
     },
-    [fetchCastList.pending]: (state, action) => {
-      state.tv.status = "loading";
+    [fetchTvCasts.pending]: (state, action) => {
+      state.tv.credits.status = "loading";
     },
-    [fetchCastList.fulfilled]: (state, action) => {
-      state.tv.credits =[action.payload];
-      state.tv.status = "succeeded";
+    [fetchTvCasts.fulfilled]: (state, action) => {
+      state.tv.credits.casts = [action.payload.cast];
+      state.tv.credits.status = "succeeded";
     },
-    [fetchCastList.rejected]: (state, action) => {
-      state.tv.status = "failed";
-      state.tv.error = action.error.message;
+    [fetchTvCasts.rejected]: (state, action) => {
+      state.tv.credits.status = "failed";
+      state.tv.credits.error = action.error.message;
     }
 
   },

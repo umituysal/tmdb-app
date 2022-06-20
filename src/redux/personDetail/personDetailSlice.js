@@ -3,35 +3,35 @@ import { fetchPersonCasts, fetchPersonDetail } from "./services";
 export const personDetailSlice = createSlice({
   name: "getPersonCasts",
   initialState: {
-    movieCredits: {},
-    personDetail: {},
-    cast: {
-      status: "idle",
-      error: null,
-    },
     person: {
+      data: {},
       status: "idle",
       error: null,
+      credits: {
+        cast: [],
+        status: "idle",
+        error: null,
+      }
     },
   },
   reducer: {},
   extraReducers: {
     [fetchPersonCasts.pending]: (state, action) => {
-      state.cast.status = "loading";
+      state.person.credits.status = "loading";
     },
     [fetchPersonCasts.fulfilled]: (state, action) => {
-      state.movieCredits = action.payload;
-      state.cast.status= "succeeded";
+      state.person.credits.cast = [action.payload.cast];
+      state.person.credits.status = "succeeded";
     },
     [fetchPersonCasts.rejected]: (state, action) => {
-      state.cast.status = "failed";
-      state.cast.error = action.error.message;
+      state.person.credits.status = "failed";
+      state.person.credits.error = action.error.message;
     },
     [fetchPersonDetail.pending]: (state, action) => {
       state.person.status = "loading";
     },
     [fetchPersonDetail.fulfilled]: (state, action) => {
-      state.personDetail = action.payload;
+      state.person.data = action.payload;
       state.person.status = "succeeded";
     },
     [fetchPersonDetail.rejected]: (state, action) => {

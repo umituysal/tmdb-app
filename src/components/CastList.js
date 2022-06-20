@@ -1,6 +1,7 @@
 import React from "react";
-import Error from "./Error";
-import Loading from "./Loading";
+
+import Error from "../common/Error";
+import Loading from "../common/Loading";
 
 function CastList({ casts, error, status }) {
   if (error) {

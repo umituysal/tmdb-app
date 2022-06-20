@@ -8,9 +8,9 @@ import tvDetailSlice from "./tvDetail/tvDetailSlice";
 
 export const store = configureStore({
   reducer: {
-    search:searchSlice,
+    search: searchSlice,
     tv: tvSlice,
-    tvDetail:tvDetailSlice,
+    tvDetail: tvDetailSlice,
     movies: moviesSlice,
     movie: movieDetailSlice,
     person: personDetailSlice,
