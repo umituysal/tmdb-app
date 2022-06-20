@@ -144,16 +144,16 @@ function Slider({ movies, tv, casts }) {
         </div>
       )) : casts?.length && casts?.map((item) => (
         <div key={item?.id}>
-          <picture className="block md:px-2">
+          <picture className="block mx-2">
             {item?.backdrop_path ? (
               <img
-                className="md:rounded-lg"
+                className="rounded-lg"
                 src={`${process.env.REACT_APP_BACKDROP_PATH}${item?.backdrop_path}`}
                 alt={item.title}
               />
             ) : (
               <img
-                className="md:rounded-lg"
+                className="rounded-lg"
                 alt={item.title}
                 src={process.env.REACT_APP_API_NOT_IMAGE}
               />

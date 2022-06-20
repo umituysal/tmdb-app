@@ -56,7 +56,7 @@ function MovieDetail() {
                 </a>
               </div>
               <div className="text-white text-center md:text-left px-6 md:px-12">
-                <h1 className="text-4xl capitalize">{movie?.data?.title}</h1>
+                <h1 className="text-2xl md:text-4xl capitalize">{movie?.data?.title}</h1>
                 <ul className="flex space-x-3 items-center justify-center md:justify-start">
                   <li className="rounded-full bg-gradient-to-r from-yellow-400 to-blue-900 text-white flex justify-center items-center w-10 h-10">
                     {movie?.data?.popularity
@@ -66,7 +66,7 @@ function MovieDetail() {
                   <li>{movie?.data?.release_date}</li>
                 </ul>
                 <h4 className="mt-5">Overwiew</h4>
-                <p>{movie?.data?.overview}</p>
+                <p className="text-sm md:text-md">{movie?.data?.overview}</p>
               </div>
             </div>
           </div>

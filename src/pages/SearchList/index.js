@@ -67,7 +67,7 @@ function SearchList() {
         <div className="col-auto md:col-span-4 py-4">
           {search.data[0]?.map((i) => (
             <a key={i?.id} href={`/${i?.media_type}/${i?.id}`}>
-              <div className="flex my-4 drop-shadow-xl shadow-xl rounded-xl">
+              <div className="flex flex-col items-center md:flex-row my-4 drop-shadow-xl shadow-xl rounded-xl">
                 {i?.media_type === "person" ? <img
                   className="w-40 h-50 mr-5 object-cover rounded-xl"
                   src={`${i?.profile_path ? process.env.REACT_APP_BACKDROP_PATH + '/' + i?.profile_path : process.env.REACT_APP_API_NOT_IMAGE}`}
@@ -82,7 +82,7 @@ function SearchList() {
                   alt={i?.title}
                 />
                 }
-                <div className="flex flex-col justify-center">
+                <div className="flex flex-col text-sm md:text-md p-4 justify-center">
                   <div>
                     <p className="font-medium text-lg"> {i?.media_type === "person" ? i?.name : i?.media_type === "movie" ? i?.title : i?.media_type === "tv" ? i?.name : 'Not Found'}</p>
                     {i?.media_type === "person" ?

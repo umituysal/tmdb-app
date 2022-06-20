@@ -87,20 +87,20 @@ function PersonDetail() {
           </div>
           <div className="col-span-3">
             <div className="text-center">
-              <h1>{person?.data?.name}</h1>
-              <h2>Biography</h2>
+              <h1 className="text-lg font-bold">{person?.data?.name}</h1>
+              <h2 className="text-md font-bold">Biography</h2>
             </div>
-            <p className="">{person?.data?.biography}</p>
+            <p className="px-2 text-center md:text-left">{person?.data?.biography}</p>
             <div className="my-4">
-              <h2>Known For</h2>
+              <h2 className="px-2 text-md font-bold mb-2 text-center md:text-left">Known For</h2>
               <ActingList
                 casts={person?.credits?.cast[0]}
                 status={person?.credits?.status}
                 error={person?.credits?.error}
               />
             </div>
-            <div>
-              <h2 className="text-2xl mx-2">Acting</h2>
+            <div className="px-2">
+              <h2 className=" text-center md:text-left text-2xl mx-2">Acting</h2>
               <table className="table-auto w-full">
                 <tbody>
                   {person?.credits?.cast[0]?.map((item) => (
