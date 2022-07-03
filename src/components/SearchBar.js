@@ -46,28 +46,28 @@ function SearchBar() {
         {searching &&
           search.data[0]?.slice(0, 5)?.map((i) => (
             <a key={i?.id} href={`/${i?.media_type}/${i?.id}`}>
-              <div className="flex py-2">
-                {i?.media_type === "person" ? <img
-                  className="w-8 h-10 md:w-16 md:h-16 mr-5 rounded-md object-cover"
-                  src={`${i?.profile_path ? process.env.REACT_APP_BACKDROP_PATH + '/' + i?.profile_path : process.env.REACT_APP_API_NOT_IMAGE}`}
+              <div className="flex items-center">
+                {i?.media_type === "person" && i?.profile_path ? <img
+                  className="w-8 h-10 md:w-16 md:h-20 mr-5 my-2 rounded-md object-cover"
+                  src={process.env.REACT_APP_BACKDROP_PATH + '/' + i?.profile_path}
                   alt={i?.name}
-                /> : i.media_type === "movie" ? <img
-                  className="w-8 h-12 md:w-16 md:h-16 mr-5 rounded-md object-cover"
-                  src={`${i?.backdrop_path ? process.env.REACT_APP_BACKDROP_PATH + '/' + i?.backdrop_path : process.env.REACT_APP_API_NOT_IMAGE}`}
+                /> : i.media_type === "movie" && i?.poster_path ? <img
+                  className="w-8 h-12 md:w-16 md:h-20 mr-5 my-2 rounded-md object-cover"
+                  src={process.env.REACT_APP_BACKDROP_PATH + '/' + i?.poster_path}
                   alt={i?.title}
-                /> : i.media_type === "tv" ? <img
-                  className="w-8 h-12 md:w-16 md:h-16 mr-5 rounded-md object-cover"
-                  src={`${i?.backdrop_path ? process.env.REACT_APP_BACKDROP_PATH + '/' + i?.backdrop_path : process.env.REACT_APP_API_NOT_IMAGE}`}
+                /> : i.media_type === "tv" && i?.poster_path ? <img
+                  className="w-8 h-12 md:w-16 md:h-20 mr-5 my-2 rounded-md object-cover"
+                  src={process.env.REACT_APP_BACKDROP_PATH + '/' + i?.poster_path}
                   alt={i?.title}
                 /> : ''
                 }
                 <div className="flex flex-col justify-center">
-                  <p className="text-sm"> {i?.media_type === "person" ? i?.name : i?.media_type === "movie" ? i?.title : i?.media_type === "tv" ? i?.name : 'Not Found'}</p>
-                  {i?.media_type === "person" ?
-                    i?.known_for_department : i?.media_type === "movie" ?
+                  <p className="text-sm"> {i?.media_type === "person" && i?.profile_path ? i?.name : i?.media_type === "movie" && i?.poster_path ? i?.title : i?.media_type === "tv" && i?.poster_path ? i?.name : ''}</p>
+                  {i?.media_type === "person" && i?.profile_path ?
+                    i?.known_for_department : i?.media_type === "movie" && i?.poster_path ?
                       <p className="text-xs"><span className="mr-1">{months[new Date(i.release_date).getMonth()]}</span>
                         <span className="mr-1">{new Date(i.release_date).getDate()},</span>
-                        {new Date(i?.release_date).getFullYear()}</p> : i?.media_type === "tv" ?
+                        {new Date(i?.release_date).getFullYear()}</p> : i?.media_type === "tv" && i?.poster_path ?
                         <p className="text-xs"><span className="mr-1">{months[new Date(i.first_air_date).getMonth()]}</span>
                           <span className="mr-1">{new Date(i.first_air_date).getDate()},</span>
                           {new Date(i?.first_air_date).getFullYear()}</p> : ''}

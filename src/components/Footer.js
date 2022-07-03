@@ -3,16 +3,16 @@ import logo from "../images/footer-logo.svg";
 
 function Footer() {
   return (
-    <footer className="p-24" style={{ backgroundColor: "#032541" }}>
+    <footer className="p-24 bg-dark-blue">
       <div className="container mx-auto flex items-center justify-center min-h-full">
-        <div className="flex flex-col leading-8 lg:flex-row ">
-          <ul className="text-white px-12 mb-2 md:mb-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 leading-8 ">
+          <ul className="text-white sm:px-12 md:px-8 lg:px-4 mb-4 ">
             <li>
               <img src={logo} alt="logo" className="w-32 mb-4" />
             </li>
             <li className="text-lg">Hoşgeldiniz!</li>
           </ul>
-          <ul className="text-white px-12 mb-2 md:mb-0">
+          <ul className="text-white sm:px-12 md:px-8 lg:px-4 mb-4">
             <h2 className="uppercase text-lg mb-2 font-medium">The Basics</h2>
             <li>TMDB Hakkında</li>
             <li>Bize Ulaşın</li>
@@ -20,7 +20,7 @@ function Footer() {
             <li>API</li>
             <li>Sistem Durumu</li>
           </ul>
-          <ul className="text-white px-12 mb-2 md:mb-0">
+          <ul className="text-white  md:px-8 lg:px-4 mb-4">
             <h2 className="uppercase text-lg mb-2 font-medium">
               katkıda bulunun
             </h2>
@@ -28,14 +28,14 @@ function Footer() {
             <li>Yeni Film Ekle</li>
             <li>Yeni Dizi Ekle</li>
           </ul>
-          <ul className="text-white px-12 mb-2 md:mb-0">
+          <ul className="text-white sm:px-12 md:px-8 lg:px-4 mb-4">
             <h2 className="uppercase text-lg mb-2 font-medium">topluluk</h2>
             <li>Rehberler</li>
             <li>Tartışmalar</li>
             <li>Öne Çıkanlar</li>
             <li>Twitter</li>
           </ul>
-          <ul className="text-white px-12 mb-2 md:mb-0">
+          <ul className="text-white sm:px-12 md:px-8 lg:px-4 mb-4">
             <h2 className="uppercase text-lg mb-2 font-medium">yasal</h2>
             <li>Kullanım Koşulları</li>
             <li>API Kullanım Şartları</li>

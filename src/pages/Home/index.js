@@ -18,11 +18,11 @@ function Home() {
     <>
       <Header />
       <Banner />
-      <div className="container mx-auto px-4 flex flex-col md:flex-start md:flex-row items-center">
+      <div className="container mx-auto px-4 my-2 flex flex-col md:flex-start md:flex-row items-center">
         <h2 className="mr-5 mt-4 md:mt-0 text-xl font-semibold">Popüler Olanlar</h2>
         <div className="flex border-dark-blue rounded-full border-2 w-fit text-sm my-4 capitalize cursor-pointer">
-          <div className={` px-10 py-2 flex items-center font-extrabold transition ease-in-out duration-300 rounded-full ${selected === 'movies' ? 'bg-dark-blue' : ''}`}><span alt="movies" className={` ${selected === 'movies' ? 'text-transparent bg-clip-text bg-gradient-to-r from-[#c0fecf] to-[#1ed5a9]' : 'text-dark-blue'}`} onClick={handleGetMovie}>film</span></div>
-          <div className={` px-10 py-2 flex items-center font-extrabold transition ease-in-out duration-300 rounded-full ${selected === 'tv' ? 'bg-dark-blue' : ''}`} ><span alt="tv" className={` ${selected === 'tv' ? 'text-transparent bg-clip-text bg-gradient-to-r from-[#c0fecf] to-[#1ed5a9]' : 'text-dark-blue'}`} onClick={handleGetTv}>dizi</span></div>
+          <div className={` px-10 py-1 flex items-center font-extrabold transition ease-in-out duration-300 rounded-full ${selected === 'movies' ? 'bg-dark-blue' : ''}`}><span alt="movies" className={` ${selected === 'movies' ? 'text-transparent bg-clip-text bg-gradient-to-r from-[#c0fecf] to-[#1ed5a9]' : 'text-dark-blue'}`} onClick={handleGetMovie}>film</span></div>
+          <div className={` px-10 py-1 flex items-center font-extrabold transition ease-in-out duration-300 rounded-full ${selected === 'tv' ? 'bg-dark-blue' : ''}`} ><span alt="tv" className={` ${selected === 'tv' ? 'text-transparent bg-clip-text bg-gradient-to-r from-[#c0fecf] to-[#1ed5a9]' : 'text-dark-blue'}`} onClick={handleGetTv}>dizi</span></div>
         </div>
       </div>
       {

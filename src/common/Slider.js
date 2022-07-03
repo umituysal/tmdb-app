@@ -3,6 +3,8 @@ import React from 'react'
 import Slick from "react-slick";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { months } from './Months';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 function NextBtn({ onClick }) {
   return (
@@ -70,97 +72,104 @@ const settings = {
   ],
 };
 function Slider({ movies, tv, casts }) {
+
   return (
     <div> <Slick className="md:-mx-2"  {...settings}>
       {movies ? movies?.map((item) => (
-        <div key={item?.id} className="flex justify-center h-full w-full">
-          <div className="rounded-lg mx-2 relative">
-            <a href={`/movie/${item?.id}`}>
-              {item?.backdrop_path ? (
+        item?.backdrop_path && (
+          <div key={item?.id} className="flex justify-center h-full w-full">
+            <div className="rounded-lg mx-2 relative">
+              <a href={`/movie/${item?.id}`}>
                 <img
-                  className="rounded-lg w-full object-cover"
-                  src={`${process.env.REACT_APP_BACKDROP_PATH}/${item?.backdrop_path}`}
+                  className="rounded-lg w-full"
+                  src={`${process.env.REACT_APP_BACKDROP_PATH}/${item?.poster_path}`}
                   alt=""
                 />
-              ) : (
-                <img
-                  className="rounded-lg w-full object-cover"
-                  alt=""
-                  src={process.env.REACT_APP_API_NOT_IMAGE}
-                />
-              )}
+                <div className="absolute top-0 flex flex-col justify-center transition-all items-center bg-black w-full h-full opacity-0 hover:opacity-80">
+                  <div className='w-14 h-14 relative'>
+                    <CircularProgressbar
+                      value={Number(item?.vote_average) * 10}
+                      text={`${Number(item?.vote_average) * 10}`}
+                      styles={buildStyles({
+                        strokeLinecap: 'butt',
 
-              <div className="absolute top-0 flex flex-col justify-center transition-all items-center bg-black w-full h-full opacity-0 hover:opacity-80">
-                <div className="rounded-full bg-gradient-to-r from-yellow-400 to-blue-900 text-white flex justify-center items-center w-10 h-10">
-                  {item?.vote_average * 10}
+                        // Text size
+                        textSize: '22px',
+                        pathTransitionDuration: 0.5,
+                        pathColor: `rgba( ${Number(item?.vote_average) * 10 < 75 ? '210, 213, 49' : '33, 208, 122'}, ${Number(item?.vote_average) * 10})`,
+                        textColor: '#fff',
+                        trailColor: '#423D0F',
+                        backgroundColor: 'bg-dark-blue',
+                      })}
+                    />
+                    <span className="absolute text-white top-4 right-3 text-[10px]">%</span>
+                  </div>
+                  <div className="p-6 text-center rounded-lg text-white h-20">
+                    <h5 className="text-md font-medium mb-2">
+                      {item?.title}
+                    </h5>
+                    <p className=" text-sm mb-4">
+                      <span className="mr-1">{months[new Date(item?.release_date).getMonth()]}</span>
+                      <span className="mr-1">{new Date(item?.release_date).getDate()},</span>
+                      {new Date(item?.release_date).getFullYear()}</p>
+                  </div>
                 </div>
-                <div className="p-6 text-center rounded-lg text-white h-20">
-                  <h5 className="text-md font-medium mb-2">
-                    {item?.title}
-                  </h5>
-                  <p className=" text-sm mb-4">
-                    <span className="mr-1">{months[new Date(item?.release_date).getMonth()]}</span>
-                    <span className="mr-1">{new Date(item?.release_date).getDate()},</span>
-                    {new Date(item?.release_date).getFullYear()}</p>
+              </a>
+            </div>
+          </div>))) : tv ? tv?.map((item) => (
+            item?.backdrop_path && (
+              <div key={item?.id} className="flex justify-center h-full w-full">
+                <div className="rounded-lg mx-2 relative">
+                  <a href={`/tv/${item?.id}`}>
+                    <img
+                      className="rounded-lg w-full  object-cover"
+                      src={`${process.env.REACT_APP_BACKDROP_PATH}/${item?.poster_path}`}
+                      alt=""
+                    />
+                    <div className="absolute top-0 flex flex-col justify-center transition-all items-center bg-black w-full h-full opacity-0 hover:opacity-80">
+                      <div className='w-14 h-14 relative'>
+                        <CircularProgressbar
+                          value={Number(item?.vote_average) * 10}
+                          text={`${Number(item?.vote_average) * 10}`}
+                          styles={buildStyles({
+                            strokeLinecap: 'butt',
+
+                            // Text size
+                            textSize: '22px',
+                            pathTransitionDuration: 0.5,
+                            pathColor: `rgba( ${Number(item?.vote_average) * 10 < 75 ? '210, 213, 49' : '33, 208, 122'}, ${Number(item?.vote_average) * 10})`,
+                            textColor: '#fff',
+                            trailColor: '#423D0F',
+                            backgroundColor: 'bg-dark-blue',
+                          })}
+                        />
+                        <span className="absolute text-white top-4 right-3 text-[10px]">%</span>
+                      </div>
+                      <div className="p-6 text-center rounded-lg text-white h-20">
+                        <h5 className=" text-md font-medium mb-2">
+                          {item?.name}
+                        </h5>
+                        <p className=" text-sm mb-4">
+                          <span className="mr-1">{months[new Date(item?.first_air_date).getMonth()]}</span>
+                          <span className="mr-1">{new Date(item?.first_air_date).getDate()},</span>
+                          {new Date(item?.first_air_date).getFullYear()}</p>
+                      </div>
+                    </div>
+                  </a>
                 </div>
               </div>
-            </a>
-          </div>
-        </div>
-      )) : tv ? tv?.map((item) => (
-        <div key={item?.id} className="flex justify-center h-full w-full">
-          <div className="rounded-lg mx-2 relative">
-            <a href={`/tv/${item?.id}`}>
-              {item?.backdrop_path ? (
-                <img
-                  className="rounded-lg w-full  object-cover"
-                  src={`${process.env.REACT_APP_BACKDROP_PATH}/${item?.backdrop_path}`}
-                  alt=""
-                />
-              ) : (
-                <img
-                  className="rounded-lg w-full object-cover"
-                  alt=""
-                  src={process.env.REACT_APP_API_NOT_IMAGE}
-                />
-              )}
-
-              <div className="absolute top-0 flex flex-col justify-center transition-all items-center bg-black w-full h-full opacity-0 hover:opacity-80">
-                <div className="rounded-full bg-gradient-to-r from-yellow-400 to-blue-900 text-white flex justify-center items-center w-10 h-10">
-                  {item?.vote_average * 10}
+            ))) : casts?.length && casts?.map((item) => (
+              item?.backdrop_path && (
+                <div key={item?.id}>
+                  <picture className="block mx-2">
+                    <img
+                      className="rounded-lg"
+                      src={`${process.env.REACT_APP_BACKDROP_PATH}${item?.backdrop_path}`}
+                      alt={item.title}
+                    />
+                  </picture>
                 </div>
-                <div className="p-6 text-center rounded-lg text-white h-20">
-                  <h5 className=" text-md font-medium mb-2">
-                    {item?.name}
-                  </h5>
-                  <p className=" text-sm mb-4">
-                    <span className="mr-1">{months[new Date(item?.first_air_date).getMonth()]}</span>
-                    <span className="mr-1">{new Date(item?.first_air_date).getDate()},</span>
-                    {new Date(item?.first_air_date).getFullYear()}</p>
-                </div>
-              </div>
-            </a>
-          </div>
-        </div>
-      )) : casts?.length && casts?.map((item) => (
-        <div key={item?.id}>
-          <picture className="block mx-2">
-            {item?.backdrop_path ? (
-              <img
-                className="rounded-lg"
-                src={`${process.env.REACT_APP_BACKDROP_PATH}${item?.backdrop_path}`}
-                alt={item.title}
-              />
-            ) : (
-              <img
-                className="rounded-lg"
-                alt={item.title}
-                src={process.env.REACT_APP_API_NOT_IMAGE}
-              />
-            )}
-          </picture>
-        </div>
-      ))}
+              )))}
     </Slick></div>
   )
 }
