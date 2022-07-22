@@ -74,7 +74,7 @@ function MovieDetail() {
                       <div>
                         <CircularProgressbar
                           value={Number(movie?.data?.vote_average) * 10}
-                          text={`${Number(movie?.data?.vote_average) * 10}`}
+                          text={`${(Number(movie?.data?.vote_average) * 10).toFixed(0, 2)}`}
                           styles={buildStyles({
                             strokeLinecap: 'butt',
 

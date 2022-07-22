@@ -22,12 +22,12 @@ function Header() {
           <nav className="hidden md:block">
             <ul className="flex items-center">
               <li className="pr-8">
-                <a href="/#" className="text-white">
+                <a href="/movies" className="text-white">
                   Filmler
                 </a>
               </li>
               <li className="pr-8">
-                <a href="/#" className="text-white">
+                <a href="/tv" className="text-white">
                   Diziler
                 </a>
               </li>
@@ -69,10 +69,10 @@ function Header() {
             <nav className="flex justify-center">
               <ul className="flex flex-col mx-auto items-center leading-10 text-white w-full">
                 <li className="menu-hover">
-                  <a href="/#">Filmler</a>
+                  <a href="/movies">Filmler</a>
                 </li>
                 <li className="menu-hover">
-                  <a href="/#">Diziler</a>
+                  <a href="/tv">Diziler</a>
                 </li>
                 <li className="menu-hover">
                   <a href="/#">Kişiler</a>

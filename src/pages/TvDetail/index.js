@@ -16,7 +16,7 @@ function TvDetail() {
 
     const { tv_id } = useParams();
     const { tv } = useDetail({ id: tv_id, name: 'tv' })
-    console.log('TV', tv)
+
     if (tv.error) {
         return <Error message={tv.error} />;
     }
@@ -76,11 +76,9 @@ function TvDetail() {
                                             <div>
                                                 <CircularProgressbar
                                                     value={Number(tv?.data?.vote_average) * 10}
-                                                    text={`${Number(tv?.data?.vote_average) * 10}`}
+                                                    text={`${(Number(tv?.data?.vote_average) * 10).toFixed(0, 2)}`}
                                                     styles={buildStyles({
                                                         strokeLinecap: 'butt',
-
-                                                        // Text size
                                                         textSize: '22px',
                                                         pathTransitionDuration: 0.5,
                                                         pathColor: `rgba( ${Number(tv?.data?.vote_average) * 10 < 75 ? '210, 213, 49' : '33, 208, 122'}, ${Number(tv?.data?.vote_average) * 10})`,
