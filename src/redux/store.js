@@ -5,6 +5,7 @@ import personDetailSlice from "./personDetail/personDetailSlice";
 import searchSlice from "./search/searchSlice";
 import tvSlice from "./tv/tvSlice";
 import tvDetailSlice from "./tvDetail/tvDetailSlice";
+import trendSlice from "./trend/trendSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export const store = configureStore({
     movies: moviesSlice,
     movie: movieDetailSlice,
     person: personDetailSlice,
+    trending: trendSlice,
   },
 });
