@@ -27,9 +27,9 @@ function Trend() {
 
   return (
     <>
-      <div className="container mx-auto px-4 my-2 flex flex-col md:flex-start md:flex-row items-center">
-        <h2 className="mr-5 mt-4 md:mt-0 text-xl font-semibold">Trend</h2>
-        <div className="flex border-dark-blue rounded-full border-2 w-fit text-sm my-4 capitalize cursor-pointer">
+      <div className="container flex flex-col items-center px-4 mx-auto my-2 md:flex-start md:flex-row">
+        <h2 className="mt-4 mr-5 text-xl font-semibold md:mt-0">Trend</h2>
+        <div className="flex my-4 text-sm capitalize border-2 rounded-full cursor-pointer border-dark-blue w-fit">
           <div
             className={` px-5 py-1 flex items-center font-extrabold transition ease-in-out duration-300 rounded-full ${
               timeWindow === "day" ? "bg-dark-blue" : ""
@@ -66,9 +66,9 @@ function Trend() {
           </div>
         </div>
       </div>
-      <div className="container mx-auto px-4">
+      <div className="container px-4 mx-auto my-4">
         {trending.status === "loading" && <Loading />}
-        <Slider trending={trending.data[0]} />
+        <Slider trending={trending?.data[0]} />
       </div>
     </>
   );

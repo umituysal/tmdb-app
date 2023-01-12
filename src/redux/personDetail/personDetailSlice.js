@@ -11,7 +11,7 @@ export const personDetailSlice = createSlice({
         cast: [],
         status: "idle",
         error: null,
-      }
+      },
     },
   },
   reducer: {},

@@ -2,13 +2,13 @@ import { useState } from "react";
 
 import Header from "../../components/Header";
 import Banner from "../../components/Banner";
-import MovieList from "../../components/MovieList";
-import TvList from "../../components/TvList";
 import Footer from "../../components/Footer";
 import SignUpBanner from "../../components/SignUpBanner";
 
 import usePopular from "../../hooks/usePopular";
+
 import Trend from "../../components/Trend";
+import Slider from "../../common/Slider";
 
 function Home() {
   const [selected, setSelected] = useState("movies");
@@ -16,16 +16,15 @@ function Home() {
     selected,
     setSelected
   );
-
   return (
     <>
       <Header />
       <Banner />
-      <div className="container mx-auto px-4 my-2 flex flex-col md:flex-start md:flex-row items-center">
-        <h2 className="mr-5 mt-4 md:mt-0 text-xl font-semibold">
+      <div className="container flex flex-col items-center px-4 mx-auto my-2 md:flex-start md:flex-row">
+        <h2 className="mt-4 mr-5 text-xl font-semibold md:mt-0">
           Popüler Olanlar
         </h2>
-        <div className="flex border-dark-blue rounded-full border-2 w-fit text-sm my-4 capitalize cursor-pointer">
+        <div className="flex my-4 text-sm capitalize border-2 rounded-full cursor-pointer border-dark-blue w-fit">
           <div
             className={` px-10 py-1 flex items-center font-extrabold transition ease-in-out duration-300 rounded-full ${
               selected === "movies" ? "bg-dark-blue" : ""
@@ -62,15 +61,17 @@ function Home() {
           </div>
         </div>
       </div>
-      {selected === "movies" ? (
-        <MovieList
-          movies={movies.data[0]}
-          status={movies.status}
-          error={movies.error}
-        />
-      ) : (
-        <TvList tv={tv.data[0]} status={tv.status} error={tv.error} />
-      )}
+      <div className="container px-4 mx-auto">
+        {selected === "movies" ? (
+          <Slider
+            movies={movies.data[0]}
+            status={movies.status}
+            error={movies.error}
+          />
+        ) : (
+          <Slider tv={tv.data[0]} status={tv.status} error={tv.error} />
+        )}
+      </div>
       <SignUpBanner />
       <Trend />
       <Footer />

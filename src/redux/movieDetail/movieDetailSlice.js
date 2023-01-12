@@ -12,8 +12,8 @@ export const movieDetailSlice = createSlice({
         casts: [],
         status: "idle",
         error: null,
-      }
-    }
+      },
+    },
   },
   reducer: {},
   extraReducers: {
@@ -32,7 +32,6 @@ export const movieDetailSlice = createSlice({
       state.movie.credits.status = "loading";
     },
     [fetchMovieCasts.fulfilled]: (state, action) => {
-     
       state.movie.credits.casts = [action.payload.cast];
       state.movie.credits.status = "succeeded";
     },

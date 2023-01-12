@@ -1,5 +1,7 @@
 import React from "react";
 import Slick from "react-slick";
+import Loading from "../common/Loading";
+import Error from "../common/Error";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { months } from "./Months";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
@@ -70,11 +72,14 @@ const settings = {
     },
   ],
 };
-function Slider({ movies, tv, casts, trending }) {
+function Slider({ movies, tv, casts, trending, error, status }) {
+  if (error) {
+    return <Error message={error} />;
+  }
 
   return (
     <div>
-      {" "}
+      {status === "loading" && <Loading />}
       <Slick className="md:-mx-2" {...settings}>
         {movies
           ? movies?.map(
@@ -95,7 +100,9 @@ function Slider({ movies, tv, casts, trending }) {
                           <div className="w-14 h-14 relative">
                             <CircularProgressbar
                               value={Number(item?.vote_average * 10).toFixed(0)}
-                              text={`${Number(item?.vote_average * 10).toFixed(0)}`}
+                              text={`${Number(item?.vote_average * 10).toFixed(
+                                0
+                              )}`}
                               styles={buildStyles({
                                 strokeLinecap: "butt",
 
@@ -103,10 +110,13 @@ function Slider({ movies, tv, casts, trending }) {
                                 textSize: "22px",
                                 pathTransitionDuration: 0.5,
                                 pathColor: `rgba( ${
-                                  Number(item?.vote_average * 10).toFixed(0) < 75
+                                  Number(item?.vote_average * 10).toFixed(0) <
+                                  75
                                     ? "210, 213, 49"
                                     : "33, 208, 122"
-                                }, ${Number(item?.vote_average * 10).toFixed(0)})`,
+                                }, ${Number(item?.vote_average * 10).toFixed(
+                                  0
+                                )})`,
                                 textColor: "#fff",
                                 trailColor: "#423D0F",
                                 backgroundColor: "bg-dark-blue",
@@ -159,7 +169,9 @@ function Slider({ movies, tv, casts, trending }) {
                           <div className="w-14 h-14 relative">
                             <CircularProgressbar
                               value={Number(item?.vote_average * 10).toFixed(0)}
-                              text={`${Number(item?.vote_average * 10).toFixed(0)}`}
+                              text={`${Number(item?.vote_average * 10).toFixed(
+                                0
+                              )}`}
                               styles={buildStyles({
                                 strokeLinecap: "butt",
 
@@ -167,10 +179,13 @@ function Slider({ movies, tv, casts, trending }) {
                                 textSize: "22px",
                                 pathTransitionDuration: 0.5,
                                 pathColor: `rgba( ${
-                                  Number(item?.vote_average * 10).toFixed(0) < 75
+                                  Number(item?.vote_average * 10).toFixed(0) <
+                                  75
                                     ? "210, 213, 49"
                                     : "33, 208, 122"
-                                }, ${Number(item?.vote_average * 10).toFixed(0)})`,
+                                }, ${Number(item?.vote_average * 10).toFixed(
+                                  0
+                                )})`,
                                 textColor: "#fff",
                                 trailColor: "#423D0F",
                                 backgroundColor: "bg-dark-blue",
@@ -223,8 +238,12 @@ function Slider({ movies, tv, casts, trending }) {
                           <div className="absolute top-0 flex flex-col justify-center transition-all items-center bg-black w-full h-full opacity-0 hover:opacity-80">
                             <div className="w-14 h-14 relative">
                               <CircularProgressbar
-                                value={Number(item?.vote_average * 10).toFixed(0)}
-                                text={`${Number(item?.vote_average * 10).toFixed(0)}`}
+                                value={Number(item?.vote_average * 10).toFixed(
+                                  0
+                                )}
+                                text={`${Number(
+                                  item?.vote_average * 10
+                                ).toFixed(0)}`}
                                 styles={buildStyles({
                                   strokeLinecap: "butt",
 
@@ -232,10 +251,13 @@ function Slider({ movies, tv, casts, trending }) {
                                   textSize: "22px",
                                   pathTransitionDuration: 0.5,
                                   pathColor: `rgba( ${
-                                    Number(item?.vote_average * 10).toFixed(0) < 75
+                                    Number(item?.vote_average * 10).toFixed(0) <
+                                    75
                                       ? "210, 213, 49"
                                       : "33, 208, 122"
-                                  }, ${Number(item?.vote_average * 10).toFixed(0)})`,
+                                  }, ${Number(item?.vote_average * 10).toFixed(
+                                    0
+                                  )})`,
                                   textColor: "#fff",
                                   trailColor: "#423D0F",
                                   backgroundColor: "bg-dark-blue",
@@ -275,8 +297,12 @@ function Slider({ movies, tv, casts, trending }) {
                           <div className="absolute top-0 flex flex-col justify-center transition-all items-center bg-black w-full h-full opacity-0 hover:opacity-80">
                             <div className="w-14 h-14 relative">
                               <CircularProgressbar
-                                value={Number(item?.vote_average * 10).toFixed(0)}
-                                text={`${Number(item?.vote_average * 10).toFixed(0)}`}
+                                value={Number(item?.vote_average * 10).toFixed(
+                                  0
+                                )}
+                                text={`${Number(
+                                  item?.vote_average * 10
+                                ).toFixed(0)}`}
                                 styles={buildStyles({
                                   strokeLinecap: "butt",
 
@@ -284,10 +310,13 @@ function Slider({ movies, tv, casts, trending }) {
                                   textSize: "22px",
                                   pathTransitionDuration: 0.5,
                                   pathColor: `rgba( ${
-                                    Number(item?.vote_average * 10).toFixed(0) < 75
+                                    Number(item?.vote_average * 10).toFixed(0) <
+                                    75
                                       ? "210, 213, 49"
                                       : "33, 208, 122"
-                                  }, ${Number(item?.vote_average * 10).toFixed(0)})`,
+                                  }, ${Number(item?.vote_average * 10).toFixed(
+                                    0
+                                  )})`,
                                   textColor: "#fff",
                                   trailColor: "#423D0F",
                                   backgroundColor: "bg-dark-blue",
