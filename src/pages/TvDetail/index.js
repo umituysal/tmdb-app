@@ -8,7 +8,7 @@ import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 
 import Error from "../../common/Error";
-import Loading from "../../common/Loading";
+import LoadingPage from "../../common/LoadingPage";
 
 import useDetail from "../../hooks/useDetail";
 
@@ -22,11 +22,12 @@ function TvDetail() {
 
   return (
     <>
-      <Header />
       {tv.status === "loading" ? (
-        <Loading />
+        <LoadingPage />
       ) : (
         <>
+          <Header />
+
           <section>
             <div
               className="relative h-[800px] md:h-[500px] bg-cover bg-no-repeat bg-center"
@@ -157,9 +158,9 @@ function TvDetail() {
               status={tv.status}
             />
           </section>
+          <Footer />
         </>
       )}
-      <Footer />
     </>
   );
 }

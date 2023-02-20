@@ -7,7 +7,7 @@ import CastList from "../../components/CastList";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 
-import Loading from "../../common/Loading";
+import LoadingPage from "../../common/LoadingPage";
 import Error from "../../common/Error";
 
 import useDetail from "../../hooks/useDetail";
@@ -22,11 +22,11 @@ function MovieDetail() {
 
   return (
     <>
-      <Header />
       {movie.status === "loading" ? (
-        <Loading />
+        <LoadingPage />
       ) : (
         <>
+          <Header />
           <section>
             <div
               className="relative h-[900px] md:h-[500px] bg-cover bg-no-repeat bg-center"
@@ -161,9 +161,10 @@ function MovieDetail() {
               status={movie?.credits?.status}
             />
           </section>
+
+          <Footer />
         </>
       )}
-      <Footer />
     </>
   );
 }
