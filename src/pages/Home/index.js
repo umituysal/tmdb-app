@@ -1,16 +1,15 @@
-import { useState } from "react";
-
-import Header from "../../components/Header";
-import Banner from "../../components/Banner";
-import Footer from "../../components/Footer";
-import SignUpBanner from "../../components/SignUpBanner";
+import { useState, lazy } from "react";
 
 import usePopular from "../../hooks/usePopular";
-
-import Trend from "../../components/Trend";
-import Slider from "../../common/Slider";
 import useLoading from "../../hooks/useLoading";
-import LoadingPage from "../../common/LoadingPage";
+
+const LoadingPage = lazy(() => import("../../common/LoadingPage"));
+const Header = lazy(() => import("../../components/Header"));
+const Banner = lazy(() => import("../../components/Banner"));
+const Slider = lazy(() => import("../../common/Slider"));
+const Trend = lazy(() => import("../../components/Trend"));
+const SignUpBanner = lazy(() => import("../../components/SignUpBanner"));
+const Footer = lazy(() => import("../../components/Footer"));
 
 function Home() {
   const [selected, setSelected] = useState("movies");
